@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Falling in Love</title>
+        <link href='http://fonts.googleapis.com/css?family=Parisienne|Gudea|Ubuntu+Mono' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+            #content { width: 66.7%; margin: 0 auto; text-align: center; }
+            h1 { font-family: 'Parisienne', cursive; font-size: 64pt; font-weight: normal; }
+            p { font-family: 'Gudea', sans-serif; font-size: 18pt; text-align: left; }
+            code, pre { font-family: 'Ubuntu Mono', monospace; font-size: 14pt; text-align: left; }
+            a { text-decoration: none; color: mediumvioletred; }
+        </style>
+    </head>
+    <body>
+        <div id="content">
+            <h1>Falling in Love</h1>
+
+            <p>
+                A Valentine's Day amusement created by <a href="http://twitter.com/rfreebern" title="@rfreebern on Twitter">@rfreebern</a>.
+            </p>
+
+            <p>
+                Add the following code snippet to the bottom of any page to add
+                fluttering hearts for all (webkit or gecko) visitors. Please
+                <a href="https://github.com/rfreebern/Do-Not-Fool" title="Do Not
+                Fool on github">respect the Do Not Fool header</a>.
+            </p>
+
+            <p>
+                <code>
+                    <pre>&lt;script type="text/javascript" src="hearts.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;Hearts();&lt;/script&gt;</pre>
+                </code>
+            </p>
+
+            <p>
+                To change the behavior of the hearts, you can tweak the 
+                following options:
+            </p>
+
+            <p>
+                <code>
+<pre>&lt;script type="text/javascript"&gt;
+    Hearts({
+        element: document.body,  // display hearts within this element
+        maxHearts: 12,           // maximum on screen at once
+        newHeartDelay: 600,      // delay between creating new hearts
+        colors: ['red', 'pink'], // colors to be randomly selected from
+        minOpacity: 0.2,         // minimum opacity
+        maxOpacity: 1.0,         // maximum opacity
+        minScale: 0.4,           // minimum scaling factor
+        maxScale: 2.4,           // maximum scaling factor
+        minDuration: 4,          // minimum seconds a heart can be on screen
+        maxDuration: 18,         // maximum seconds a heart can be on screen
+        endAfterNumHearts: 64,   // stop creating new hearts after this many have been created
+        endAfterNumSeconds: 30   // stop creating new hearts after this many seconds
+    });
+&lt;/script&gt;</pre>
+                </code>
+            </p>
+
+            <p id="warning">
+                Warning! Falling in Love may be hard on the <strike>knees</strike> CPU.
+            </p>
+        </div>
+        <script type="text/javascript" src="hearts.js"></script>
+        <script type="text/javascript">
+            Hearts();
+        </script>
+    </body>
+</html>
