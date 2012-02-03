@@ -1,0 +1,63 @@
+.hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.heart-container {
+    float: left;
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    -moz-animation-name: fall;
+    -webkit-animation-name: fall;
+    -moz-animation-timing-function: linear;
+    -webkit-animation-timing-function: linear;
+}
+@-moz-keyframes fall {
+    from { top: -10%; }
+    to { top: 101%; }
+}
+@-webkit-keyframes fall {
+    from { top: -10%; }
+    to { top: 101%; }
+}
+.heart {
+    overflow: hidden;
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    text-align: center;
+    color: red;
+    text-shadow: #999 4px 4px 2px;
+    -moz-animation-duration: 0.5s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-direction: alternate;
+    -moz-transform-origin: center center;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-transform-origin: center center;
+}
+@-moz-keyframes swing {
+    from { -moz-transform: rotate(-45deg) translateX(10px); }
+    to { -moz-transform: rotate(45deg) translateX(-10px); }
+}
+@-moz-keyframes twirl {
+    from { -moz-transform: scaleX(1) translateX(5px); }
+    50% { -moz-transform: scaleX(0.1); }
+    to { -moz-transform: scaleX(1) translateX(-5px); }
+}
+@-webkit-keyframes swing {
+    from { -webkit-transform: rotate(-45deg) translateX(10px); }
+    to { -webkit-transform: rotate(45deg) translateX(-10px); }
+}
+@-webkit-keyframes twirl {
+    from { -webkit-transform: scaleX(1) translateX(5px); }
+    50% { -webkit-transform: scaleX(0.1); }
+    to { -webkit-transform: scaleX(1) translateX(-5px); }
+}
