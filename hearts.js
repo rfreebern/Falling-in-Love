@@ -92,7 +92,6 @@
     var startTime = false;
 
     Hearts.prototype.stop = function (instant) {
-        console.log('stopped');
         clearTimeout(runner);
         if (instant) {
             this.element.removeChild(getHearts(this.element));
@@ -132,7 +131,7 @@
             this.element.appendChild(hearts);
         }
 
-        // Fix incorrect height.
+        // Account for changing height due to delayed CSS, etc.
         if (this.element.offsetHeight !== hearts.style.height.replace('px', '')) {
             hearts.style.height = this.element.offsetHeight + 'px';
         }
@@ -148,29 +147,31 @@
         // Pick a random animation.
         var anims = ['swing', 'twirl'];
         var a = anims[Math.round(Math.random() * (anims.length - 1))];
-        dom[1].style.WebkitAnimationName = a;
-        dom[1].style.MozAnimationName = a;
 
         // Pick a random color and opacity.
         var colors = this.colors; 
-        var color = colors[Math.round(Math.random() * (colors.length - 1))];
+        var color = this.colors[Math.round(Math.random() * (this.colors.length - 1))];
         dom[1].style.color = color;
         dom[1].style.opacity = randVal(this.minOpacity, this.maxOpacity);
 
         // Pick a random location, speed, and size.
         dom[0].style.left = (15 + Math.random() * (hearts.scrollWidth - 30)) + 'px';
-        dom[0].style.WebkitAnimationDuration = randVal(this.minDuration, this.maxDuration) + 's';
-        dom[0].style.WebkitTransform = 'scale(' + randVal(this.minScale, this.maxScale) + ')';
-        dom[0].style.MozAnimationDuration = randVal(this.minDuration, this.maxDuration) + 's';
-        dom[0].style.MozTransform = 'scale(' + randVal(this.minScale, this.maxScale) + ')';
+
+        for (v in { '': 1, 'Moz': 1, 'Webkit': 1, 'O': 1, 'ms': 1 }) {
+            dom[1].style[v + 'AnimationName'] = a;
+            dom[0].style[v + 'AnimationDuration'] = randVal(this.minDuration, this.maxDuration) + 's';
+            dom[0].style[v + 'Transform'] = 'scale(' + randVal(this.minScale, this.maxScale) + ')';
+        }
 
         // Let it go!
         hearts.appendChild(dom[0]);
         totalHearts++;
 
-        // Once it reaches the bottom of the page, get rid of it.
+        // Once it reaches the bottom of the element, get rid of it.
         dom[0].addEventListener('animationend', function () { hearts.removeChild(dom[0]); });
-        dom[0].addEventListener('webkitAnimationEnd', function () { hearts.removeChild(dom[0]); });
+        for (v in { 'webkit': 1, 'o': 1, 'MS': 1 }) {
+            dom[0].addEventListener(v + 'AnimationEnd', function () { hearts.removeChild(dom[0]); });
+        }
 
         runner = setTimeout(function () { self.go(); }, self.newHeartDelay);
     };
