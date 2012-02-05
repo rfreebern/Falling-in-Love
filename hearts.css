@@ -1,10 +1,9 @@
 .hearts {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 .heart-container {
     float: left;
@@ -17,12 +16,12 @@
     -webkit-animation-timing-function: linear;
 }
 @-moz-keyframes fall {
-    from { top: -10%; }
-    to { top: 101%; }
+    from { top: -20%; }
+    to { top: 120%; }
 }
 @-webkit-keyframes fall {
-    from { top: -10%; }
-    to { top: 101%; }
+    from { top: -20%; }
+    to { top: 120%; }
 }
 .heart {
     overflow: hidden;
