@@ -78,13 +78,26 @@
         return min + Math.random() * (max - min);
     }
 
-    function pos (el) {
-        var pos = { x: el.offsetLeft, y: el.offsetTop };
+    function getPosition (el) {
+        var position = { x: el.offsetLeft, y: el.offsetTop };
         while (el = el.offsetParent) {
-            pos.x += el.offsetLeft;
-            pos.y += el.offsetTop;
+            position.x += el.offsetLeft;
+            position.y += el.offsetTop;
         }
-        return pos;
+        return position;
+    }
+
+    function getHeight (el) {
+        var height = el.offsetHeight;
+        if (el === document.documentElement) {
+            height = Math.max(
+                document.documentElement.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                window.innerHeight
+            );
+        }
+        return height;
     }
 
     var runner = false;
@@ -111,18 +124,13 @@
             return this.stop();
         }
         var hearts = getHearts(this.element);
+        var height = getHeight(this.element);
 
         // On the first execution, create the container element.
         if (!hearts) {
             startTime = new Date().getTime();
             hearts = document.createElement('div');
-            var position = pos(this.element);
-            // If using document.documentElement but it's not as tall as the viewport,
-            // DTRT and fill the browser with hearts.
-            height = this.element.offsetHeight;
-            if (this.element === document.documentElement && height < document.documentElement.clientHeight) {
-                height = document.documentElement.clientHeight;
-            }
+            var position = getPosition(this.element);
             var properties = {
                 width: this.element.offsetWidth + 'px',
                 height: height + 'px',
@@ -138,8 +146,8 @@
         }
 
         // Account for changing height due to delayed CSS, etc.
-        if (this.element.offsetHeight !== hearts.style.height.replace('px', '')) {
-            hearts.style.height = this.element.offsetHeight + 'px';
+        if (height !== hearts.style.height.replace('px', '')) {
+            hearts.style.height = height + 'px';
         }
 
         // If there are enough hearts on-screen already, don't add another.
