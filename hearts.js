@@ -12,7 +12,7 @@
     }
 
     var defaults = {
-        element: document.body,
+        element: document.documentElement,
         zIndex: -999999,
         maxHearts: 12,
         newHeartDelay: 600,
@@ -119,8 +119,8 @@
             hearts = document.createElement('div');
             var position = pos(this.element);
             var properties = {
-                width: this.element.clientWidth + 'px',
-                height: this.element.clientHeight + 'px',
+                width: this.element.offsetWidth + 'px',
+                height: this.element.offsetHeight + 'px',
                 top: position.y + 'px',
                 left: position.x + 'px',
                 zIndex: this.zIndex,
@@ -133,8 +133,8 @@
         }
 
         // Fix incorrect height.
-        if (this.element.clientHeight !== hearts.style.height.replace('px', '')) {
-            hearts.style.height = this.element.clientHeight + 'px';
+        if (this.element.offsetHeight !== hearts.style.height.replace('px', '')) {
+            hearts.style.height = this.element.offsetHeight + 'px';
         }
 
         // If there are enough hearts on-screen already, don't add another.
