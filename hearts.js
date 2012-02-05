@@ -1,4 +1,4 @@
-(function (window, undefined) {
+!function (window, undefined) {
     var document = window.document;
 
     var Hearts = function (options) {
@@ -176,4 +176,4 @@
     };
 
     window.Hearts = Hearts;
-})(window);
+}(window);
