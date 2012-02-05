@@ -7,6 +7,7 @@
             #content { width: 66.7%; margin: 0 auto; text-align: center; }
             h1 { font-family: 'Parisienne', cursive; font-size: 64pt; font-weight: normal; margin: 0.5em 0; }
             p { font-family: 'Gudea', sans-serif; font-size: 18pt; text-align: left; }
+            .twitter-share-button { margin-bottom: -6px; }
             .plea { font-size: 12pt; }
             code, pre { font-family: 'Ubuntu Mono', monospace; font-size: 14pt; text-align: left; }
             a { text-decoration: none; color: mediumvioletred; }
@@ -18,7 +19,8 @@
             <h1>Falling in Love</h1>
 
             <p>
-                A Valentine's Day amusement created by <a href="http://twitter.com/rfreebern" title="@rfreebern on Twitter">@rfreebern</a>.
+                A CSS3/JS Valentine's Day amusement created by <a href="http://twitter.com/rfreebern" title="@rfreebern on Twitter">@rfreebern</a>.
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="rfreebern" data-size="large">Tweet</a>
             </p>
 
             <p>
@@ -26,8 +28,7 @@
                 fluttering hearts for all (webkit or gecko) visitors. <span class="plea">Please
                 <a href="https://github.com/rfreebern/Do-Not-Fool"
                 title="Do Not Fool on github">respect the Do Not Fool header</a>.
-                </span> This script is written in pure JavaScript and does not
-                rely on any external libraries.
+                </span> This script does not rely on any external libraries.
             </p>
 
             <p>
@@ -43,7 +44,7 @@
             </p>
 
             <p>
-                <code>
+                <code id="options">
 <pre>&lt;script type="text/javascript"&gt;
     Hearts({
         element: document.body,  // display hearts within this element
@@ -74,10 +75,11 @@
         <script type="text/javascript" src="hearts.js"></script>
         <script type="text/javascript">
             Hearts({
-                maxHearts: 8,
-                maxDuration: 10,
+                maxHearts: 10,
+                maxDuration: 15,
                 endAfterNumSeconds: 60
             });
         </script>
+        <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
     </body>
 </html>
