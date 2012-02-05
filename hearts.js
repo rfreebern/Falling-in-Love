@@ -56,7 +56,7 @@
                 id:    'heartsCSSfile',
                 rel:   'stylesheet',
                 type:  'text/css',
-                href:  'hearts.css',
+                href:  '//rfreebern.github.com/Falling-in-Love/hearts.min.css',
                 media: 'screen'
             };
             for (p in properties) {
@@ -117,9 +117,15 @@
             startTime = new Date().getTime();
             hearts = document.createElement('div');
             var position = pos(this.element);
+            // If using document.documentElement but it's not as tall as the viewport,
+            // DTRT and fill the browser with hearts.
+            height = this.element.offsetHeight;
+            if (this.element === document.documentElement && height < document.documentElement.clientHeight) {
+                height = document.documentElement.clientHeight;
+            }
             var properties = {
                 width: this.element.offsetWidth + 'px',
-                height: this.element.offsetHeight + 'px',
+                height: height + 'px',
                 top: position.y + 'px',
                 left: position.x + 'px',
                 zIndex: this.zIndex,
