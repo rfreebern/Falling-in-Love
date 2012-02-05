@@ -5,10 +5,12 @@
         <link href='http://fonts.googleapis.com/css?family=Parisienne|Gudea|Ubuntu+Mono' rel='stylesheet' type='text/css'>
         <style type="text/css">
             #content { width: 66.7%; margin: 0 auto; text-align: center; }
-            h1 { font-family: 'Parisienne', cursive; font-size: 64pt; font-weight: normal; }
+            h1 { font-family: 'Parisienne', cursive; font-size: 64pt; font-weight: normal; margin: 0.5em 0; }
             p { font-family: 'Gudea', sans-serif; font-size: 18pt; text-align: left; }
+            .plea { font-size: 12pt; }
             code, pre { font-family: 'Ubuntu Mono', monospace; font-size: 14pt; text-align: left; }
             a { text-decoration: none; color: mediumvioletred; }
+            #warning { font-size: 14pt; }
         </style>
     </head>
     <body>
@@ -21,9 +23,11 @@
 
             <p>
                 Add the following code snippet to the bottom of any page to add
-                fluttering hearts for all (webkit or gecko) visitors. Please
-                <a href="https://github.com/rfreebern/Do-Not-Fool" title="Do Not
-                Fool on github">respect the Do Not Fool header</a>.
+                fluttering hearts for all (webkit or gecko) visitors. <span class="plea">Please
+                <a href="https://github.com/rfreebern/Do-Not-Fool"
+                title="Do Not Fool on github">respect the Do Not Fool header</a>.
+                </span> This script is written in pure JavaScript and does not
+                rely on any external libraries.
             </p>
 
             <p>
@@ -43,6 +47,7 @@
 <pre>&lt;script type="text/javascript"&gt;
     Hearts({
         element: document.body,  // display hearts within this element
+        zIndex: -999999,         // create hearts at this z-index
         maxHearts: 12,           // maximum on screen at once
         newHeartDelay: 600,      // delay between creating new hearts
         colors: ['red', 'pink'], // colors to be randomly selected from
@@ -60,12 +65,19 @@
             </p>
 
             <p id="warning">
-                Warning! Falling in Love may be hard on the <strike>knees</strike> CPU.
+                Warning! <em>Falling in Love</em> may be hard on the <strike>knees</strike> CPU,
+                depending on each visitor's hardware. I suggest you limit the number of
+                hearts on-screen and make sure the script ends after a reasonable length
+                of time.
             </p>
         </div>
         <script type="text/javascript" src="hearts.js"></script>
         <script type="text/javascript">
-            Hearts();
+            Hearts({
+                maxHearts: 8,
+                maxDuration: 10,
+                endAfterNumSeconds: 60
+            });
         </script>
     </body>
 </html>
