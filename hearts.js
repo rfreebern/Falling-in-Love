@@ -13,6 +13,7 @@
 
     var defaults = {
         element: document.body,
+        zIndex: -999999,
         maxHearts: 12,
         newHeartDelay: 600,
         colors: ['red', 'deeppink', 'blueviolet', 'fuchsia', 'orchid'],
@@ -65,9 +66,9 @@
         }
     }
 
-    function findElement (element, className) {
+    function getHearts (element) {
         var hearts = element.lastChild;
-        while (hearts && hearts.className !== className) {
+        while (hearts && hearts.className !== 'hearts') {
             hearts = hearts.previousSibling;
         }
         return hearts;
@@ -77,44 +78,52 @@
         return min + Math.random() * (max - min);
     }
 
+    function pos (el) {
+        var pos = { x: el.offsetLeft, y: el.offsetTop };
+        while (el = el.offsetParent) {
+            pos.x += el.offsetLeft;
+            pos.y += el.offsetTop;
+        }
+        return pos;
+    }
+
     var runner = false;
     var totalHearts = 0;
     var startTime = false;
 
     Hearts.prototype.stop = function (instant) {
+        console.log('stopped');
         clearTimeout(runner);
-        console.log('stopping. ' + this.element);
         if (instant) {
-            findElement(this.element, 'hearts').style.display = 'none';
+            this.element.removeChild(getHearts(this.element));
         } else {
             var self = this;
             setTimeout(function () {
-                findElement(self.element, 'hearts').style.display = 'none';
+                self.element.removeChild(getHearts(self.element));
             }, this.maxDuration * 1000 + 1000);
         }
     };
 
     Hearts.prototype.go = function () {
         var self = this;
-        if (
-            (this.endAfterNumSeconds > 0 && new Date().getTime() >= startTime + this.endAfterNumSeconds * 1000)
+        if ((this.endAfterNumSeconds > 0 && startTime && new Date().getTime() >= startTime + this.endAfterNumSeconds * 1000)
             ||
-            (this.endAfterNumHearts > 0 && totalHearts >= this.endAfterNumHearts)
-        ) {
+            (this.endAfterNumHearts > 0 && totalHearts >= this.endAfterNumHearts)) {
             return this.stop();
         }
-        var hearts = findElement(this.element, 'hearts');
+        var hearts = getHearts(this.element);
+
+        // On the first execution, create the container element.
         if (!hearts) {
             startTime = new Date().getTime();
             hearts = document.createElement('div');
+            var position = pos(this.element);
             var properties = {
                 width: this.element.clientWidth + 'px',
                 height: this.element.clientHeight + 'px',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                zIndex: -99999,
-                overflow: 'hidden'
+                top: position.y + 'px',
+                left: position.x + 'px',
+                zIndex: this.zIndex,
             };
             for (p in properties) {
                 hearts.style[p] = properties[p];
@@ -123,6 +132,12 @@
             this.element.appendChild(hearts);
         }
 
+        // Fix incorrect height.
+        if (this.element.clientHeight !== hearts.style.height.replace('px', '')) {
+            hearts.style.height = this.element.clientHeight + 'px';
+        }
+
+        // If there are enough hearts on-screen already, don't add another.
         if (hearts.childNodes.length >= this.maxHearts) {
             return setTimeout(function () { self.go(); }, self.newHeartDelay);
         }
@@ -143,7 +158,7 @@
         dom[1].style.opacity = randVal(this.minOpacity, this.maxOpacity);
 
         // Pick a random location, speed, and size.
-        dom[0].style.left = (10 + Math.random() * (hearts.scrollWidth - 10)) + 'px';
+        dom[0].style.left = (15 + Math.random() * (hearts.scrollWidth - 30)) + 'px';
         dom[0].style.WebkitAnimationDuration = randVal(this.minDuration, this.maxDuration) + 's';
         dom[0].style.WebkitTransform = 'scale(' + randVal(this.minScale, this.maxScale) + ')';
         dom[0].style.MozAnimationDuration = randVal(this.minDuration, this.maxDuration) + 's';
