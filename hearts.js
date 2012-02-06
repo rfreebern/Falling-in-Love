@@ -1,6 +1,4 @@
-!function (window, undefined) {
-    var document = window.document;
-
+!function (window, document, undefined) {
     var Hearts = function (options) {
         if (!this.go) {
             return new Hearts(options);
@@ -9,7 +7,7 @@
         merge(this, options || {}, defaults);
         loadCSS();
         this.go();
-    }
+    };
 
     var defaults = {
         element: document.documentElement,
@@ -59,8 +57,10 @@
                 href:  '//rfreebern.github.com/Falling-in-Love/hearts.min.css',
                 media: 'screen'
             };
-            for (p in properties) {
-                l[p] = properties[p];
+            for (var p in properties) {
+                if (properties.hasOwnProperty(p)) {
+                    l[p] = properties[p];
+                }
             }
             document.getElementsByTagName('head')[0].appendChild(l);
         }
@@ -118,8 +118,7 @@
 
     Hearts.prototype.go = function () {
         var self = this;
-        if ((this.endAfterNumSeconds > 0 && startTime && new Date().getTime() >= startTime + this.endAfterNumSeconds * 1000)
-            ||
+        if ((this.endAfterNumSeconds > 0 && startTime && new Date().getTime() >= startTime + this.endAfterNumSeconds * 1000) ||
             (this.endAfterNumHearts > 0 && totalHearts >= this.endAfterNumHearts)) {
             return this.stop();
         }
@@ -138,8 +137,10 @@
                 left: position.x + 'px',
                 zIndex: this.zIndex,
             };
-            for (p in properties) {
-                hearts.style[p] = properties[p];
+            for (var p in properties) {
+                if (properties.hasOwnProperty(p)) {
+                    hearts.style[p] = properties[p];
+                }
             }
             hearts.className = 'hearts';
             this.element.appendChild(hearts);
@@ -171,7 +172,9 @@
         // Pick a random location, speed, and size.
         dom[0].style.left = (15 + Math.random() * (hearts.scrollWidth - 30)) + 'px';
 
-        for (v in { '': 1, 'Moz': 1, 'Webkit': 1, 'O': 1, 'ms': 1 }) {
+        var vendorPrefixes = [ '', 'Moz', 'Webkit', 'O', 'ms' ];
+        for (var i = 0; i < vendorPrefixes.length; i++) {
+            var v = vendorPrefixes[i];
             dom[1].style[v + 'AnimationName'] = a;
             dom[0].style[v + 'AnimationDuration'] = randVal(this.minDuration, this.maxDuration) + 's';
             dom[0].style[v + 'Transform'] = 'scale(' + randVal(this.minScale, this.maxScale) + ')';
@@ -182,13 +185,15 @@
         totalHearts++;
 
         // Once it reaches the bottom of the element, get rid of it.
-        dom[0].addEventListener('animationend', function () { hearts.removeChild(dom[0]); });
-        for (v in { 'webkit': 1, 'o': 1, 'MS': 1 }) {
-            dom[0].addEventListener(v + 'AnimationEnd', function () { hearts.removeChild(dom[0]); });
+        var remove = function () { hearts.removeChild(dom[0]); };
+        dom[0].addEventListener('animationend', remove);
+        var vendorPrefixes = [ 'webkit', 'o', 'MS' ];
+        for (var i = 0; i < vendorPrefixes.length; i++) {
+            dom[0].addEventListener(vendorPrefixes[i] + 'AnimationEnd', remove);
         }
 
         runner = setTimeout(function () { self.go(); }, self.newHeartDelay);
     };
 
     window.Hearts = Hearts;
-}(window);
+}(window, document);
