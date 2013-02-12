@@ -54,7 +54,7 @@
                 id:    'heartsCSSfile',
                 rel:   'stylesheet',
                 type:  'text/css',
-                href:  '//rfreebern.github.com/Falling-in-Love/hearts.min.css',
+                href:  '//raw.github.com/rfreebern/Falling-in-Love/master/hearts.min.css',
                 media: 'screen'
             };
             for (var p in properties) {
