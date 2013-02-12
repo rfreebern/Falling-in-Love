@@ -13,6 +13,7 @@
             a { text-decoration: none; color: mediumvioletred; }
             #warning { font-size: 14pt; }
         </style>
+        <link rel="stylesheet" type="text/css" href="hearts.min.css" />
     </head>
     <body>
         <div id="content">
@@ -24,16 +25,33 @@
             </p>
 
             <p>
-                Add the following code snippet to the bottom of any page to add
-                fluttering hearts for all (webkit or gecko) visitors. <span class="plea">Please
+                <ul>
+                    <li><a href="falling-in-love.tar.bz2">falling-in-love.tar.bz2 (2.0 kb)</a></li>
+                    <li><a href="falling-in-love.zip">falling-in-love.zip (2.2 kb)</a></li>
+                </ul>
+            </p>
+
+            <p>
+                Download and unpack the JavaScript and CSS files on your webserver,
+                then add the following code snippets (with the correct file
+                paths) to any page to add fluttering hearts for
+                all (webkit or gecko) visitors. <span class="plea">Please
                 <a href="https://github.com/rfreebern/Do-Not-Fool"
                 title="Do Not Fool on github">respect the Do Not Fool header</a>.
                 </span> This script does not rely on any external libraries.
             </p>
 
             <p>
+                CSS:
                 <code>
-                    <pre>&lt;script type="text/javascript" src="//raw.github.com/rfreebern/Falling-in-Love/master/hearts.min.js"&gt;&lt;/script&gt;
+                    <pre>&lt;link rel="stylesheet" type="text/css" media="screen" href="/falling-in-love/hearts.min.css" /&gt;</pre>
+                </code>
+            <p>
+
+            <p>
+                JavaScript:
+                <code>
+                    <pre>&lt;script type="text/javascript" src="/falling-in-love/hearts.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;Hearts();&lt;/script&gt;</pre>
                 </code>
             </p>
@@ -72,7 +90,7 @@
                 of time.
             </p>
         </div>
-        <script type="text/javascript" src="//raw.github.com/rfreebern/Falling-in-Love/master/hearts.min.js"></script>
+        <script type="text/javascript" src="hearts.min.js"></script>
         <script type="text/javascript">
             Hearts({
                 maxHearts: 10,

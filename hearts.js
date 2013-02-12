@@ -5,7 +5,6 @@
         }
 
         merge(this, options || {}, defaults);
-        loadCSS();
         this.go();
     };
 
@@ -45,25 +44,6 @@
 
         c.appendChild(h);
         return [c, h];
-    }
-
-    function loadCSS () {
-        if (!document.getElementById('heartsCSSfile')) {
-            var l = document.createElement('link');
-            var properties = {
-                id:    'heartsCSSfile',
-                rel:   'stylesheet',
-                type:  'text/css',
-                href:  '//raw.github.com/rfreebern/Falling-in-Love/master/hearts.min.css',
-                media: 'screen'
-            };
-            for (var p in properties) {
-                if (properties.hasOwnProperty(p)) {
-                    l[p] = properties[p];
-                }
-            }
-            document.getElementsByTagName('head')[0].appendChild(l);
-        }
     }
 
     function getHearts (element) {
