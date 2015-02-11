@@ -1,9 +1,14 @@
 !function (window, document, undefined) {
+    var runner = false;
+    var totalHearts = 0;
+    var startTime = false;
     var Hearts = function (options) {
         if (!this.go) {
             return new Hearts(options);
         }
-
+        runner = false;
+        totalHearts = 0;
+        startTime = false;
         merge(this, options || {}, defaults);
         this.go();
     };
@@ -80,10 +85,6 @@
         return height;
     }
 
-    var runner = false;
-    var totalHearts = 0;
-    var startTime = false;
-
     Hearts.prototype.stop = function (instant) {
         clearTimeout(runner);
         if (instant) {
@@ -135,7 +136,7 @@
         if (hearts.childNodes.length >= this.maxHearts) {
             return setTimeout(function () { self.go(); }, self.newHeartDelay);
         }
-        
+
         // Construct new heart DOM elements.
         var dom = heartDOM();
 
@@ -144,7 +145,7 @@
         var a = anims[Math.round(Math.random() * (anims.length - 1))];
 
         // Pick a random color and opacity.
-        var colors = this.colors; 
+        var colors = this.colors;
         var color = this.colors[Math.round(Math.random() * (this.colors.length - 1))];
         dom[1].style.color = color;
         dom[1].style.opacity = randVal(this.minOpacity, this.maxOpacity);
